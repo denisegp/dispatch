@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  role         String
+  company      String
+  industry     String
+  createdAt    DateTime      @default(now())
+  voiceProfile VoiceProfile?
+  drafts       Draft[]
+  cascadeJobs  CascadeJob[]
+}
+
+model VoiceProfile {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tone             String[]
+  sentenceStyle    String
+  vocabulary       String
+  signaturePhrases String[]
+  topics           String[]
+  avoid            String[]
+  rawSummary       String
+  samples          String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Draft {
+  id           String      @id @default(cuid())
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content      String
+  topic        String
+  status       String      @default("draft")
+  cascadeJobId String?
+  cascadeJob   CascadeJob? @relation(fields: [cascadeJobId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model CascadeJob {
+  id            String   @id @default(cuid())
+  masterContent String
+  status        String   @default("pending")
+  createdById   String
+  createdBy     User     @relation(fields: [createdById], references: [id])
+  drafts        Draft[]
+  createdAt     DateTime @default(now())
+}
