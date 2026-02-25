@@ -7,9 +7,7 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 function createClient() {
-  const url = process.env.DATABASE_URL!
-  // Use the Neon serverless adapter for Neon connections (production),
-  // standard pg adapter for local Postgres (development).
+  const url = process.env.DATABASE_URL ?? ''
   const isNeon = url.includes('neon.tech')
   const adapter = isNeon
     ? new PrismaNeon({ connectionString: url })
