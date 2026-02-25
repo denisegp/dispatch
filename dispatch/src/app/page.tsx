@@ -30,14 +30,11 @@ export default function Home() {
         {/* Hero */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-slate-900 mb-4 leading-tight">
-            Your voice. Your ideas.
-            <br />
-            <span className="text-blue-700">LinkedIn content that sounds like you.</span>
+            Turn expertise into presence.
           </h1>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Dispatch captures your distinctive writing voice and uses it to generate LinkedIn posts
-            that are authentic — not generic AI. Built for financial advisors, consultants, lawyers,
-            and other client-facing professionals.
+            Dispatch captures how each professional actually thinks and speaks. Then helps them
+            publish consistent, polished thought leadership — in their own voice.
           </p>
         </div>
 
