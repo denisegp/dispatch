@@ -192,14 +192,22 @@ function RefField({ val, onChange }: { val: string; onChange: (v: string) => voi
 }
 
 function FrictionPath({ val, onChange, refVal, onRef }: any) {
+  val = Array.isArray(val) ? val : [];
+  const tog = (id: string) => {
+    if (val.includes(id)) onChange(val.filter((x: string) => x !== id));
+    else if (val.length < 3) onChange([...val, id]);
+  };
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <p style={{ fontSize: 12, color: "#9CA3AF", marginBottom: 4 }}>Select up to 3.</p>
       {BARRIERS.map(o => {
-        const s = val === o.id;
+        const s = val.includes(o.id);
+        const disabled = !s && val.length >= 3;
         return (
-          <button key={o.id} onClick={() => onChange(o.id)} style={radioStyle(s)}>
+          <button key={o.id} onClick={() => tog(o.id)} style={{ ...radioStyle(s), opacity: disabled ? 0.4 : 1 }}>
             <RadioDot sel={s} />
             <span style={{ color: s ? BRAND : "#374151", fontSize: 14, fontWeight: s ? 600 : 400 }}>{o.label}</span>
+            {s && <span style={{ marginLeft: "auto", fontSize: 11, color: BRAND, fontWeight: 700 }}>#{val.indexOf(o.id) + 1}</span>}
           </button>
         );
       })}
