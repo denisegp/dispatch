@@ -61,61 +61,12 @@ export default function CapturePage() {
         <div style={{ position: "absolute", right: 60, top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.12)" }} />
         <div style={{ maxWidth: 560, width: "100%" }}>
           <div style={{ marginBottom: 48 }}>
-            <div style={{ background: "#fff", borderRadius: 8, padding: "6px 12px", display: "inline-flex", alignItems: "center" }}>
-              <span style={{ color: BRAND, fontWeight: 400, fontSize: 17, fontStyle: "italic", letterSpacing: "-0.01em" }}>di</span><span style={{ color: BRAND, fontWeight: 800, fontSize: 17, letterSpacing: "-0.01em" }}>Spatch</span>
-            </div>
+            <span style={{ color: "#fff", fontWeight: 400, fontSize: 22, fontStyle: "italic", letterSpacing: "-0.01em" }}>di</span><span style={{ color: "#fff", fontWeight: 800, fontSize: 22, letterSpacing: "-0.01em" }}>Spatch</span>
           </div>
           <h2 style={{ color: "#fff", fontSize: 80, fontWeight: 800, lineHeight: 1.0, marginBottom: 24, letterSpacing: "-0.03em" }}>Your voice<br/>is captured.</h2>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 17, lineHeight: 1.65, marginBottom: 40, maxWidth: 420 }}>
             {liActive ? "We know how you think, who you write for, and what is already working. Dispatch will build on it." : "We know how you think, who you write for, and what has held you back. Dispatch is built to remove exactly that."}
           </p>
-          {chs.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 48 }}>
-              {chs.filter((id: string) => id !== "linkedin").map((id: string) => { const ch = CHANNELS.find(x => x.id === id) || { label: id.replace("custom_", "") }; return <span key={id} style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 20, padding: "6px 16px", fontSize: 13, color: "#fff", fontWeight: 500 }}>{ch.label}</span>; })}
-            </div>
-          )}
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <button style={{ background: "#fff", border: "none", borderRadius: 10, padding: "14px 32px", color: BRAND, fontSize: 15, fontWeight: 700, cursor: "pointer" }}>Generate your first draft →</button>
-            <button onClick={() => { setDone(false); setCur(0); setAns({}); setRefs(""); }} style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.45)", fontSize: 13, cursor: "pointer" }}>Start over</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50 flex font-sans text-sm text-gray-900">
-      {/* Sidebar */}
-      <div className="w-62 bg-white border-r border-gray-100 p-7 flex flex-col flex-shrink-0" style={{ width: 248 }}>
-        <div className="mb-7">
-          <div className="inline-flex rounded-md px-3 py-1 mb-2" style={{ background: BRAND }}>
-            <span className="text-white font-extrabold text-base tracking-tight">diSpatch</span>
-          </div>
-          <p className="text-xs text-gray-400 font-semibold tracking-widest">CAPTURE</p>
-        </div>
-        <div className="mb-5">
-          <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
-            <div className="h-full rounded-full transition-all duration-500" style={{ width: pct + "%", background: BRAND }} />
-          </div>
-          <p className="text-xs text-gray-400 mt-1">{pct}% complete</p>
-        </div>
-        <div className="flex-1">
-          {visibleQS.map((item) => {
-            const d = isOk(item, ans);
-            const active = item.id === q.id;
-            const ic = CAT_COLORS[item.cat];
-            return (
-              <button key={item.id} onClick={() => gt(QUESTIONS.indexOf(item))} className="w-full rounded-lg px-3 py-2 cursor-pointer text-left mb-0.5 flex items-center gap-3 transition-all" style={{ background: active ? ic + "0F" : "transparent", border: "1px solid " + (active ? ic + "33" : "transparent") }}>
-                <div className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs text-white font-bold" style={{ border: "1.5px solid " + (d ? ic : "#D1D5DB"), background: d ? ic : "transparent" }}>{d ? "✓" : ""}</div>
-                <div>
-                  <p className="text-xs font-bold tracking-widest mb-0.5" style={{ color: active ? ic : "#9CA3AF" }}>{item.cat}</p>
-                  <p className="text-xs" style={{ color: active ? "#111827" : "#6B7280", fontWeight: active ? 500 : 400 }}>
-                    {item.dynamic_q ? (liStatus ? (liActive ? "What is working" : "What gets in the way") : "LinkedIn experience") : item.label}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
         </div>
       </div>
 
