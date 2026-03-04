@@ -56,22 +56,24 @@ export default function CapturePage() {
   if (done) {
     const chs = ans[1]?.active || [];
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans">
-        <div className="text-center max-w-lg px-10">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-7 text-2xl" style={{ background: BRAND + "15", border: "2px solid " + BRAND + "33", color: BRAND }}>✓</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Your voice is captured.</h2>
-          <p className="text-gray-500 text-base leading-relaxed mb-7">
+      <div style={{ minHeight: "100vh", background: BRAND, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "DM Sans, sans-serif", padding: 40 }}>
+        <div style={{ maxWidth: 560, width: "100%" }}>
+          <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", borderRadius: 20, padding: "5px 14px", marginBottom: 40 }}>
+            <span style={{ color: "rgba(255,255,255,0.8)", fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>DISPATCH</span>
+          </div>
+          <h2 style={{ color: "#fff", fontSize: 52, fontWeight: 800, lineHeight: 1.1, marginBottom: 24, letterSpacing: "-0.02em" }}>Your voice<br/>is captured.</h2>
+          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 17, lineHeight: 1.65, marginBottom: 40, maxWidth: 420 }}>
             {liActive ? "We know how you think, who you write for, and what is already working. Dispatch will build on it." : "We know how you think, who you write for, and what has held you back. Dispatch is built to remove exactly that."}
           </p>
           {chs.length > 0 && (
-            <div className="flex flex-wrap gap-2 justify-center mb-10">
-              {chs.map((id: string) => {
-                const ch = CHANNELS.find(x => x.id === id) || { icon: "📌", label: id.replace("custom_", "") };
-                return <span key={id} className="text-xs font-semibold rounded-full px-4 py-1" style={{ background: BRAND + "0F", border: "1px solid " + BRAND + "33", color: BRAND }}>{ch.icon} {ch.label}</span>;
-              })}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 48 }}>
+              {chs.map((id: string) => { const ch = CHANNELS.find(x => x.id === id) || { label: id.replace("custom_", "") }; return <span key={id} style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 20, padding: "6px 16px", fontSize: 13, color: "#fff", fontWeight: 500 }}>{ch.label}</span>; })}
             </div>
           )}
-          <button onClick={() => { setDone(false); setCur(0); setAns({}); setRefs(""); }} className="text-sm text-gray-400 border border-gray-200 rounded-lg px-5 py-2 cursor-pointer bg-transparent">Start over</button>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <button style={{ background: "#fff", border: "none", borderRadius: 10, padding: "14px 32px", color: BRAND, fontSize: 15, fontWeight: 700, cursor: "pointer" }}>Generate your first draft →</button>
+            <button onClick={() => { setDone(false); setCur(0); setAns({}); setRefs(""); }} style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.45)", fontSize: 13, cursor: "pointer" }}>Start over</button>
+          </div>
         </div>
       </div>
     );
