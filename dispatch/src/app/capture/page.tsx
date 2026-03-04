@@ -58,16 +58,18 @@ export default function CapturePage() {
     return (
       <div style={{ minHeight: "100vh", background: BRAND, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "DM Sans, sans-serif", padding: 40 }}>
         <div style={{ maxWidth: 560, width: "100%" }}>
-          <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", borderRadius: 20, padding: "5px 14px", marginBottom: 40 }}>
-            <span style={{ color: "rgba(255,255,255,0.8)", fontSize: 11, fontWeight: 700, letterSpacing: "0.1em" }}>DISPATCH</span>
+          <div style={{ marginBottom: 48, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ background: "#fff", borderRadius: 6, padding: "5px 10px", display: "inline-flex" }}>
+              <span style={{ color: BRAND, fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em", fontStyle: "italic" }}>di</span><span style={{ color: BRAND, fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>Spatch</span>
+            </div>
           </div>
-          <h2 style={{ color: "#fff", fontSize: 52, fontWeight: 800, lineHeight: 1.1, marginBottom: 24, letterSpacing: "-0.02em" }}>Your voice<br/>is captured.</h2>
+          <h2 style={{ color: "#fff", fontSize: 80, fontWeight: 800, lineHeight: 1.0, marginBottom: 24, letterSpacing: "-0.03em" }}>Your voice<br/>is captured.</h2>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 17, lineHeight: 1.65, marginBottom: 40, maxWidth: 420 }}>
             {liActive ? "We know how you think, who you write for, and what is already working. Dispatch will build on it." : "We know how you think, who you write for, and what has held you back. Dispatch is built to remove exactly that."}
           </p>
           {chs.length > 0 && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 48 }}>
-              {chs.map((id: string) => { const ch = CHANNELS.find(x => x.id === id) || { label: id.replace("custom_", "") }; return <span key={id} style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 20, padding: "6px 16px", fontSize: 13, color: "#fff", fontWeight: 500 }}>{ch.label}</span>; })}
+              {chs.filter((id: string) => id !== "linkedin").map((id: string) => { const ch = CHANNELS.find(x => x.id === id) || { label: id.replace("custom_", "") }; return <span key={id} style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 20, padding: "6px 16px", fontSize: 13, color: "#fff", fontWeight: 500 }}>{ch.label}</span>; })}
             </div>
           )}
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
