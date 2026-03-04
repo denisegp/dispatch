@@ -56,11 +56,13 @@ export default function CapturePage() {
   if (done) {
     const chs = ans[1]?.active || [];
     return (
-      <div style={{ minHeight: "100vh", background: BRAND, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "DM Sans, sans-serif", padding: 40 }}>
+      <div style={{ minHeight: "100vh", background: BRAND, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "DM Sans, sans-serif", padding: 40, position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", left: 60, top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.12)" }} />
+        <div style={{ position: "absolute", right: 60, top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.12)" }} />
         <div style={{ maxWidth: 560, width: "100%" }}>
-          <div style={{ marginBottom: 48, display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ background: "#fff", borderRadius: 6, padding: "5px 10px", display: "inline-flex" }}>
-              <span style={{ color: BRAND, fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em", fontStyle: "italic" }}>di</span><span style={{ color: BRAND, fontWeight: 800, fontSize: 18, letterSpacing: "-0.02em" }}>Spatch</span>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{ background: "#fff", borderRadius: 8, padding: "6px 12px", display: "inline-flex", alignItems: "center" }}>
+              <span style={{ color: BRAND, fontWeight: 400, fontSize: 17, fontStyle: "italic", letterSpacing: "-0.01em" }}>di</span><span style={{ color: BRAND, fontWeight: 800, fontSize: 17, letterSpacing: "-0.01em" }}>Spatch</span>
             </div>
           </div>
           <h2 style={{ color: "#fff", fontSize: 80, fontWeight: 800, lineHeight: 1.0, marginBottom: 24, letterSpacing: "-0.03em" }}>Your voice<br/>is captured.</h2>
