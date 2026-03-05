@@ -65,7 +65,7 @@ export default function CapturePage() {
         <div style={{ position: "absolute", right: "6%", top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.3)" }} />
         <div style={{ maxWidth: 560, width: "100%", position: "relative" }}>
           <div style={{ marginBottom: 48 }}>
-            <div style={{ background: "#fff", borderRadius: 6, padding: "6px 14px", display: "inline-flex", alignItems: "center" }}><span style={{ color: BRAND, fontWeight: 400, fontSize: 20, fontStyle: "italic", letterSpacing: "-0.01em" }}>di</span><span style={{ color: BRAND, fontWeight: 800, fontSize: 20, letterSpacing: "-0.01em" }}>Spatch</span></div>
+            <span style={{ color: "#fff", fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: 26, fontWeight: 400 }}>diS</span><span style={{ color: "#fff", fontFamily: "DM Sans, sans-serif", fontSize: 26, fontWeight: 800 }}>patch</span>
           </div>
           <h2 style={{ color: "#fff", fontSize: 80, fontWeight: 800, lineHeight: 1.0, marginBottom: 24, letterSpacing: "-0.03em" }}>Your voice<br/>is captured.</h2>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 17, lineHeight: 1.65, marginBottom: 48, maxWidth: 420 }}>
