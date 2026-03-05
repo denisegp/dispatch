@@ -32,19 +32,24 @@ export default function CapturePage() {
   const liActive = liStatus === "active";
   const liSelected = !!(ans[1]?.active?.includes("linkedin"));
   const visibleQS = QUESTIONS.filter(item => !item.dynamic_q || liSelected);
-  const next = async () => { let n = cur + 1; if (n < QUESTIONS.length && QUESTIONS[n].dynamic_q && !liSelected) n++; if (n < QUESTIONS.length) gt(n); else {
+  const next = async () => { console.log('next called, cur:', cur, 'total:', QUESTIONS.length); let n = cur + 1; if (n < QUESTIONS.length && QUESTIONS[n].dynamic_q && !liSelected) n++; if (n < QUESTIONS.length) gt(n); else {
+    console.log('REACHED SAVE BLOCK');
     setSaving(true);
-    await supabase.from('voice_profiles').insert({
-      channels: ans[1],
-      role: ans[2],
-      topics: ans[3],
-      expertise: ans[4],
-      style: ans[5],
-      audience: ans[6],
-      intent: ans[7],
-      linkedin_exp: ans[8],
-      writing_refs: refs,
-    });
+    try {
+      const { error } = await supabase.from('voice_profiles').insert({
+        channels: ans[1],
+        role: ans[2],
+        topics: ans[3],
+        expertise: ans[4],
+        style: ans[5],
+        audience: ans[6],
+        intent: ans[7],
+        linkedin_exp: ans[8],
+        writing_refs: refs,
+      });
+      if (error) console.error('Supabase error:', error);
+    } catch(e) { console.error('Save failed:', e); }
+    console.log('setting done true');
     setSaving(false);
     setDone(true);
   } };
