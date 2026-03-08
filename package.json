@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "npm test --prefix dispatch",
+    "test:ui": "npm run test:ui --prefix dispatch",
+    "test:headed": "npm run test:headed --prefix dispatch"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

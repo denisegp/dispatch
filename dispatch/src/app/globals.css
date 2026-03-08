@@ -1,13 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: hsl(0 0% 99%);
+  --foreground: hsl(240 20% 10%);
+
+  --primary: hsl(240 90% 35%);
+  --primary-foreground: hsl(0 0% 98%);
+
+  --muted-foreground: hsl(240 8% 46%);
+  --border: hsl(240 10% 92%);
+
+  --dispatch-blue: hsl(240 90% 35%);
+  --dispatch-blue-light: hsl(240 80% 50%);
+  --dispatch-surface: hsl(240 20% 97%);
+
+  --gradient-hero: linear-gradient(155deg, hsl(240 90% 32%) 0%, hsl(240 85% 42%) 100%);
+
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.03), 0 1px 2px -1px rgb(0 0 0 / 0.03);
+  --shadow-elevated: 0 10px 40px -12px rgb(0 0 0 / 0.1);
+  --shadow-brand: 0 8px 30px -8px hsl(240 90% 35% / 0.3);
+
+  --font-display: 'DM Sans', system-ui, sans-serif;
+  --font-logo-serif: 'Playfair Display', Georgia, serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-dispatch-blue: var(--dispatch-blue);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -15,5 +37,18 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: 'DM Sans', var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.gradient-hero {
+  background: var(--gradient-hero);
+}
+
+.font-logo-serif {
+  font-family: var(--font-logo-serif);
+  font-style: italic;
 }

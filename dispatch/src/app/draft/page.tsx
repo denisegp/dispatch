@@ -123,11 +123,20 @@ function DraftPageInner() {
             Dispatch
           </Link>
           <nav className="flex items-center gap-6 text-sm">
-            <Link href="/onboarding" className="text-blue-300 hover:text-white transition-colors">
+            <Link href="/capture" className="text-blue-300 hover:text-white transition-colors">
               Onboarding
+            </Link>
+            <Link href="/posts" className="text-blue-300 hover:text-white transition-colors">
+              Posts
+            </Link>
+            <Link href="/suggest" className="text-blue-300 hover:text-white transition-colors">
+              Suggest
             </Link>
             <Link href="/draft" className="text-white font-medium border-b border-blue-400 pb-0.5">
               Draft
+            </Link>
+            <Link href="/drafts" className="text-blue-300 hover:text-white transition-colors">
+              Drafts
             </Link>
             <Link href="/cascade" className="text-blue-300 hover:text-white transition-colors">
               Cascade

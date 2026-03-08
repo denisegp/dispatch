@@ -1,134 +1,241 @@
 import Link from 'next/link'
+import { Mic, Layers, FileText, Shield, Share2, BarChart3, Check, X, ArrowRight } from 'lucide-react'
+
+const BLUE = 'hsl(240 90% 35%)'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-blue-950 text-white px-6 py-5">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-bold tracking-tight">Dispatch</span>
-            <span className="ml-3 text-blue-400 text-sm hidden sm:inline">
-              Authentic thought leadership, at scale
-            </span>
-          </div>
-          <nav className="flex items-center gap-5 text-sm">
-            <Link href="/onboarding" className="text-blue-300 hover:text-white transition-colors">
-              Onboarding
+    <div className="min-h-screen bg-white font-sans">
+
+      {/* ── Nav ── */}
+      <header style={{ backgroundColor: BLUE }} className="sticky top-0 z-50 px-8 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <Logo />
+          <nav className="flex items-center gap-6">
+            <Link href="/draft" className="text-white text-sm hover:opacity-80 transition-opacity">
+              Log in
             </Link>
-            <Link href="/draft" className="text-blue-300 hover:text-white transition-colors">
-              Draft
-            </Link>
-            <Link href="/cascade" className="text-blue-300 hover:text-white transition-colors">
-              Cascade
+            <Link
+              href="/capture"
+              className="bg-white text-sm font-semibold px-5 py-2 rounded-full hover:bg-gray-100 transition-colors"
+              style={{ color: BLUE }}
+            >
+              Get Started
             </Link>
           </nav>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-16">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4 leading-tight">
-            Turn expertise into presence.
+      {/* ── Hero ── */}
+      <section className="gradient-hero px-8 pt-20 pb-32">
+        <div className="max-w-6xl mx-auto">
+          {/* Badge */}
+          <div className="inline-flex items-center border border-white/40 rounded-full px-4 py-1.5 mb-10">
+            <span className="text-white text-xs font-semibold tracking-widest uppercase">
+              Employee Thought Leadership Platform
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-white font-black leading-none tracking-tight mb-8" style={{ fontSize: 'clamp(56px, 7vw, 96px)' }}>
+            Turn expertise<br />into presence.
           </h1>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Dispatch captures how each professional actually thinks and speaks. Then helps them
-            publish consistent, polished thought leadership — in their own voice.
+
+          {/* Subtext */}
+          <p className="text-white/70 text-lg leading-relaxed max-w-xl mb-12">
+            Dispatch captures how each professional actually thinks and speaks.
+            Then helps them publish consistent, polished thought leadership — in
+            their own voice.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex items-center gap-8">
+            <Link
+              href="/capture"
+              className="inline-flex items-center gap-2 bg-white font-bold px-7 py-3.5 rounded-full hover:bg-gray-100 transition-colors"
+              style={{ color: BLUE }}
+            >
+              Start free trial <ArrowRight size={16} />
+            </Link>
+            <Link href="/draft" className="text-white font-medium hover:opacity-80 transition-opacity">
+              See it in action
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Problem ── */}
+      <section className="bg-white px-8 py-24">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase mb-4">The Problem</p>
+          <h2 className="text-black font-black text-5xl leading-tight tracking-tight mb-16 max-w-3xl">
+            Your best people have expertise. It&apos;s going nowhere.
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            {/* Left copy */}
+            <div className="space-y-6">
+              <p className="text-black font-bold text-xl leading-relaxed">
+                Client-facing professionals who publish consistently generate inbound referrals and win mandates before the RFP is issued.
+              </p>
+              <p className="text-black font-bold text-xl leading-relaxed">
+                The vast majority never publish. Revenue stays on the table every day.
+              </p>
+            </div>
+
+            {/* Right cards */}
+            <div className="space-y-4">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                <p className="font-bold text-black mb-2">No time. No workflow. Blank page.</p>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Client-facing professionals are billing hours, not drafting content.
+                  The infrastructure to publish doesn&apos;t exist.
+                </p>
+              </div>
+              <div className="rounded-2xl p-6" style={{ backgroundColor: '#f0f0f8' }}>
+                <p className="font-bold text-black mb-2">The shadow AI problem.</p>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Your team is already using ChatGPT — pasting client data and deal terms into external tools.
+                  Zero visibility. Zero audit trail. Dispatch closes that loop.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Workflow ── */}
+      <section className="px-8 py-24" style={{ backgroundColor: '#f5f5fa' }}>
+        <div className="max-w-6xl mx-auto">
+          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase mb-4">A Complete Workflow</p>
+          <h2 className="text-black font-black text-5xl leading-tight tracking-tight mb-4 max-w-3xl">
+            From voice capture to publishing.<br />One message, many authentic voices.
+          </h2>
+          <p className="text-gray-400 text-base mb-16">Not another AI writing tool. A complete workflow.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                icon: <Mic size={22} />,
+                title: 'Voice Capture',
+                desc: 'Extracts how each professional actually thinks from interviews and existing content. Not generic AI. Their voice.',
+              },
+              {
+                icon: <Layers size={22} />,
+                title: 'Content Cascade',
+                desc: 'One master piece. Automatically adapted into each professional\'s individual tone. One message, dozens of authentic voices, zero extra effort.',
+              },
+              {
+                icon: <FileText size={22} />,
+                title: 'AI-Assisted Drafting',
+                desc: 'Drafts in their authentic voice. Not output that sounds like everyone else.',
+              },
+              {
+                icon: <Shield size={22} />,
+                title: 'Compliance Workflow',
+                desc: 'Pre-publication review with full audit trail. Built for FINRA, SEC, and FCA.',
+              },
+              {
+                icon: <Share2 size={22} />,
+                title: 'Multi-Channel Publishing',
+                desc: 'LinkedIn, Substack, and press — each formatted correctly for the channel.',
+              },
+              {
+                icon: <BarChart3 size={22} />,
+                title: 'Revenue Attribution',
+                desc: 'Track impressions, engagement, inbound leads, and mandate pipeline. ROI visible to revenue leadership.',
+              },
+            ].map(({ icon, title, desc }) => (
+              <div key={title} className="bg-white rounded-2xl p-8 border border-gray-100">
+                <div className="mb-6" style={{ color: BLUE }}>{icon}</div>
+                <h3 className="font-bold text-black text-lg mb-3">{title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Comparison ── */}
+      <section className="bg-white px-8 py-24">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase mb-4">Why Dispatch</p>
+          <h2 className="text-black font-black text-5xl leading-tight tracking-tight mb-16 max-w-2xl">
+            Built for a problem the others don&apos;t solve.
+          </h2>
+
+          <div className="rounded-2xl border border-gray-200 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left p-5 font-normal text-gray-400 w-1/3" />
+                  <th className="p-5 font-medium text-gray-400 text-center">Grammarly</th>
+                  <th className="p-5 font-medium text-gray-400 text-center">Writer</th>
+                  <th className="p-5 font-medium text-gray-400 text-center">ChatGPT</th>
+                  <th
+                    className="p-5 font-bold text-white text-center rounded-t-xl"
+                    style={{ backgroundColor: BLUE }}
+                  >
+                    Dispatch
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  'Voice preservation',
+                  'External publishing',
+                  'Compliance layer',
+                  'Approval workflow',
+                  'Personal brand incentive',
+                ].map((feature, i) => (
+                  <tr key={feature} className={i < 4 ? 'border-b border-gray-100' : ''}>
+                    <td className="p-5 text-gray-700">{feature}</td>
+                    <td className="p-5 text-center text-gray-300"><X size={16} className="mx-auto" /></td>
+                    <td className="p-5 text-center text-gray-300"><X size={16} className="mx-auto" /></td>
+                    <td className="p-5 text-center text-gray-300"><X size={16} className="mx-auto" /></td>
+                    <td className="p-5 text-center" style={{ backgroundColor: '#f0f0f8' }}>
+                      <Check size={16} className="mx-auto" style={{ color: BLUE }} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-gray-400 text-sm italic mt-6">
+            Writer has moved upmarket into enterprise AI agents competing with Salesforce. The mid-market is unclaimed.
           </p>
         </div>
+      </section>
 
-        {/* Feature cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link href="/onboarding" className="group">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7 h-full flex flex-col hover:border-blue-300 hover:shadow-md transition-all">
-              <div className="w-12 h-12 rounded-xl bg-blue-950 flex items-center justify-center mb-5">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Step 1</span>
-                <h2 className="text-xl font-bold text-slate-900 mt-1 mb-2">Voice Onboarding</h2>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Paste 3–5 writing samples and Dispatch analyzes your tone, sentence style,
-                  signature phrases, and vocabulary to build your personal voice profile.
-                </p>
-              </div>
-              <div className="mt-5 text-blue-700 text-sm font-semibold group-hover:text-blue-800 transition-colors">
-                Set up your profile →
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/draft" className="group">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7 h-full flex flex-col hover:border-blue-300 hover:shadow-md transition-all">
-              <div className="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center mb-5">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Step 2</span>
-                <h2 className="text-xl font-bold text-slate-900 mt-1 mb-2">Draft Generator</h2>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Give Dispatch a topic and optional notes. It generates a LinkedIn post in your
-                  exact voice — ready to edit, refine, and publish.
-                </p>
-              </div>
-              <div className="mt-5 text-blue-700 text-sm font-semibold group-hover:text-blue-800 transition-colors">
-                Generate a post →
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/cascade" className="group">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-7 h-full flex flex-col hover:border-blue-300 hover:shadow-md transition-all">
-              <div className="w-12 h-12 rounded-xl bg-blue-500 flex items-center justify-center mb-5">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Step 3</span>
-                <h2 className="text-xl font-bold text-slate-900 mt-1 mb-2">Content Cascade</h2>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Share one master message with your entire team. Dispatch generates a personalized
-                  LinkedIn post for each person in their own voice — simultaneously.
-                </p>
-              </div>
-              <div className="mt-5 text-blue-700 text-sm font-semibold group-hover:text-blue-800 transition-colors">
-                Cascade to your team →
-              </div>
-            </div>
+      {/* ── CTA Footer ── */}
+      <section className="gradient-hero px-8 py-24 text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-white font-black text-5xl leading-tight tracking-tight mb-6">
+            Ready to turn expertise into presence?
+          </h2>
+          <p className="text-white/70 text-lg mb-10">
+            Set up your voice profile in minutes. Generate your first post today.
+          </p>
+          <Link
+            href="/capture"
+            className="inline-flex items-center gap-2 bg-white font-bold px-8 py-4 rounded-full text-base hover:bg-gray-100 transition-colors"
+            style={{ color: BLUE }}
+          >
+            Start free trial <ArrowRight size={18} />
           </Link>
         </div>
+      </section>
 
-        {/* Quick start banner */}
-        <div className="mt-12 bg-blue-950 rounded-2xl px-8 py-7 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="text-lg font-bold mb-1">Ready to get started?</h3>
-            <p className="text-blue-300 text-sm">
-              A demo user (Alex Rivera) is pre-seeded. Jump straight to draft generation or cascade
-              without going through onboarding.
-            </p>
-          </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <Link
-              href="/onboarding"
-              className="px-5 py-2.5 bg-white text-blue-950 font-semibold rounded-lg hover:bg-blue-50 transition-colors text-sm"
-            >
-              Start Onboarding
-            </Link>
-            <Link
-              href="/draft"
-              className="px-5 py-2.5 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors text-sm border border-blue-600"
-            >
-              Generate Draft
-            </Link>
-          </div>
-        </div>
-      </main>
     </div>
+  )
+}
+
+function Logo() {
+  return (
+    <span className="text-white text-2xl tracking-tight select-none">
+      <span className="font-logo-serif">diS</span>
+      <span className="font-bold">patch</span>
+    </span>
   )
 }

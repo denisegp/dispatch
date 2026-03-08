@@ -13,6 +13,7 @@ model User {
   role         String
   company      String
   industry     String
+  autoPost     Boolean       @default(false)
   createdAt    DateTime      @default(now())
   voiceProfile VoiceProfile?
   drafts       Draft[]
@@ -36,16 +37,33 @@ model VoiceProfile {
 }
 
 model Draft {
-  id           String      @id @default(cuid())
+  id           String       @id @default(cuid())
   userId       String
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   content      String
   topic        String
-  status       String      @default("draft")
+  status       String       @default("draft")
   cascadeJobId String?
-  cascadeJob   CascadeJob? @relation(fields: [cascadeJobId], references: [id])
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  cascadeJob   CascadeJob?  @relation(fields: [cascadeJobId], references: [id])
+  sourcePostId String?
+  sourcePost   CompanyPost? @relation(fields: [sourcePostId], references: [id])
+  autoPost     Boolean      @default(false)
+  scheduledFor DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model CompanyPost {
+  id         String   @id @default(cuid())
+  title      String
+  content    String
+  tags       String[]
+  priority   Int      @default(0)
+  sourceUrl  String?
+  sourceType String   @default("manual")
+  fileName   String?
+  createdAt  DateTime @default(now())
+  drafts     Draft[]
 }
 
 model CascadeJob {

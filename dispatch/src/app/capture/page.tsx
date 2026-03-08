@@ -1,6 +1,7 @@
 "use client";
 import { supabase } from "@/lib/supabase";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { QUESTIONS, CAT_COLORS, BRAND, CHANNELS, CH_STATUS, TOPICS, TONES, AUDIENCE, FOLLOWERS, CONNECTIONS, INTENTS, BARRIERS, CONTENT_TYPES, WORKING } from "@/lib/questions";
 
 function isOk(q: any, ans: any): boolean {
@@ -16,12 +17,15 @@ function isOk(q: any, ans: any): boolean {
 }
 
 export default function CapturePage() {
+  const router = useRouter();
   const [cur, setCur] = useState(0);
   const [ans, setAns] = useState<any>({});
   const [refs, setRefs] = useState("");
   const [vis, setVis] = useState(true);
   const [done, setDone] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [name, setName] = useState("");
+  const [userId, setUserId] = useState("");
 
   const q = QUESTIONS[cur];
   const ac = CAT_COLORS[q.cat] || BRAND;
@@ -33,7 +37,6 @@ export default function CapturePage() {
   const liSelected = !!(ans[1]?.active?.includes("linkedin"));
   const visibleQS = QUESTIONS.filter(item => !item.dynamic_q || liSelected);
   const next = async () => { console.log('next called, cur:', cur, 'total:', QUESTIONS.length); let n = cur + 1; if (n < QUESTIONS.length && QUESTIONS[n].dynamic_q && !liSelected) n++; if (n < QUESTIONS.length) gt(n); else {
-    console.log('REACHED SAVE BLOCK');
     setSaving(true);
     try {
       const { error } = await supabase.from('voice_profiles').insert({
@@ -48,8 +51,30 @@ export default function CapturePage() {
         writing_refs: refs,
       });
       if (error) console.error('Supabase error:', error);
-    } catch(e) { console.error('Save failed:', e); }
-    console.log('setting done true');
+    } catch(e) { console.error('Supabase save failed:', e); }
+    try {
+      const res = await fetch('/api/process-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          roleDescription: ans[2],
+          topics: ans[3],
+          expertise: ans[4],
+          tone: ans[5],
+          audience: ans[6],
+          intent: ans[7],
+          linkedinExp: ans[8],
+          writingRefs: refs,
+        }),
+      });
+      const data = await res.json();
+      if (data.userId) {
+        localStorage.setItem('dispatch_user_id', data.userId);
+        localStorage.setItem('dispatch_user_name', name);
+        setUserId(data.userId);
+      }
+    } catch(e) { console.error('Voice profile save failed:', e); }
     setSaving(false);
     setDone(true);
   } };
@@ -72,8 +97,8 @@ export default function CapturePage() {
             {liActive ? "We know how you think, who you write for, and what is already working. Dispatch will build on it." : "We know how you think, who you write for, and what has held you back. Dispatch is built to remove exactly that."}
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <button style={{ background: "#fff", border: "none", borderRadius: 10, padding: "14px 32px", color: BRAND, fontSize: 15, fontWeight: 700, cursor: "pointer" }}>Generate your first draft →</button>
-            <button onClick={() => { setDone(false); setCur(0); setAns({}); setRefs(""); }} style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.45)", fontSize: 13, cursor: "pointer" }}>Start over</button>
+            <button onClick={() => router.push(`/draft${userId ? `?userId=${userId}` : ''}`)} style={{ background: "#fff", border: "none", borderRadius: 10, padding: "14px 32px", color: BRAND, fontSize: 15, fontWeight: 700, cursor: "pointer" }}>Generate your first draft →</button>
+            <button onClick={() => { setDone(false); setCur(0); setAns({}); setRefs(""); setName(""); setUserId(""); }} style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.45)", fontSize: 13, cursor: "pointer" }}>Start over</button>
           </div>
         </div>
       </div>
@@ -84,11 +109,19 @@ export default function CapturePage() {
     <div className="min-h-screen bg-gray-50 flex font-sans text-sm text-gray-900">
       {/* Sidebar */}
       <div className="w-62 bg-white border-r border-gray-100 p-7 flex flex-col flex-shrink-0" style={{ width: 248 }}>
-        <div className="mb-7">
+        <div className="mb-5">
           <div className="inline-flex rounded-md px-3 py-1 mb-2" style={{ background: BRAND }}>
             <span style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: 18, fontWeight: 400, color: "#fff" }}>diS</span><span style={{ fontFamily: "DM Sans, sans-serif", fontSize: 18, fontWeight: 800, color: "#fff" }}>patch</span>
           </div>
           <p className="text-xs text-gray-400 font-semibold tracking-widest">CAPTURE</p>
+        </div>
+        <div className="mb-5">
+          <input
+            placeholder="Your name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            style={{ width: "100%", background: "#F9FAFB", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "8px 12px", fontSize: 13, color: "#111827", outline: "none", boxSizing: "border-box" }}
+          />
         </div>
         <div className="mb-5">
           <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
@@ -139,9 +172,15 @@ export default function CapturePage() {
           <div className="mt-9 flex items-center gap-4">
             {cur > 0 && <button onClick={() => { let p = cur - 1; if (p >= 0 && QUESTIONS[p].dynamic_q && !liSelected) p--; gt(p); }} className="text-sm text-gray-400 bg-transparent border-none cursor-pointer">← Back</button>}
             
-            <button onClick={next} disabled={!answered} className="rounded-lg px-8 py-3 text-sm font-semibold transition-all" style={{ background: answered ? ac : "#E5E7EB", color: answered ? "#fff" : "#9CA3AF", cursor: answered ? "pointer" : "default", border: "none" }}>
-              {cur === QUESTIONS.length - 1 || (!liSelected && cur === QUESTIONS.length - 2) ? "Complete setup" : "Continue →"}
-            </button>
+            {(() => {
+              const isLastStep = cur === QUESTIONS.length - 1 || (!liSelected && cur === QUESTIONS.length - 2);
+              const canComplete = answered && (!isLastStep || name.trim().length > 0);
+              return (
+                <button onClick={next} disabled={!canComplete} className="rounded-lg px-8 py-3 text-sm font-semibold transition-all" style={{ background: canComplete ? ac : "#E5E7EB", color: canComplete ? "#fff" : "#9CA3AF", cursor: canComplete ? "pointer" : "default", border: "none" }}>
+                  {isLastStep ? (name.trim() ? "Complete setup" : "Add your name to complete") : "Continue →"}
+                </button>
+              );
+            })()}
           </div>
         </div>
       </div>
