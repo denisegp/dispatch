@@ -4,12 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository layout
 
-This is a monorepo with two Next.js apps at different stages:
+Single Next.js app at the repo root. All development happens here.
 
-- `dispatch/` — the active app (all development happens here)
-- Root — an older/stub Next.js app; ignore it
-
-All commands below should be run from `dispatch/dispatch/` unless noted otherwise.
+All commands should be run from the repo root (`dispatch/`) unless noted otherwise.
 
 ## Commands
 
@@ -23,7 +20,7 @@ npm run db:push      # push schema to DB (no migration files)
 npm run db:seed      # seed demo user Alex Rivera
 npm run db:studio    # open Prisma Studio
 
-# Testing (run from repo root OR dispatch/dispatch/)
+# Testing (run from repo root)
 npm test             # headless Playwright
 npm run test:ui      # Playwright visual UI
 npm run test:headed  # see the browser while tests run
@@ -37,7 +34,7 @@ npx playwright test --grep "shows progress bar"
 
 ## Environment variables
 
-Required in `dispatch/dispatch/.env.local`:
+Required in `.env.local` at repo root:
 ```
 DATABASE_URL=
 ANTHROPIC_API_KEY=
@@ -54,7 +51,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 The capture flow writes to both: Supabase first (raw JSON), then `POST /api/process-capture` which calls Claude to synthesize a voice profile and saves structured data to Postgres.
 
 ### Prisma specifics
-- Config lives in `prisma/prisma.config.ts` (datasource URL), not in `schema.prisma`
+- Config lives in `prisma.config.ts` at repo root (datasource URL), not in `schema.prisma`
 - Client generates to `src/generated/prisma` — import as `@/generated/prisma` in app code
 - Run `npx prisma generate` after any schema change before the app will compile
 
@@ -87,7 +84,7 @@ No auth system. After onboarding, `userId` and `userName` are stored in `localSt
 - `POST /api/analyze-voice` — legacy route, kept but not primary
 
 ### Playwright tests
-Tests live in `dispatch/dispatch/tests/`. The config (`playwright.config.ts`) auto-starts the dev server if not already running (`reuseExistingServer: true`). DB-dependent assertions are wrapped in `if (count > 0)` guards so tests pass even without a running database.
+Tests live in `tests/`. The config (`playwright.config.ts`) auto-starts the dev server if not already running (`reuseExistingServer: true`). DB-dependent assertions are wrapped in `if (count > 0)` guards so tests pass even without a running database.
 
 ### `src/lib/questions.ts`
 Central config for the capture survey: all question definitions, option lists (`CHANNELS`, `TOPICS`, `TONES`, `AUDIENCE`, etc.), and the `BRAND` color constant used throughout the capture UI.
